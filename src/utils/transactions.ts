@@ -5,15 +5,13 @@ export const selectTransactions = (
 ): Transaction[] => {
   return transactions
     .filter(({ timestamp }) => timestamp * 1000 <= Date.now())
-    .map(({ amount, name, timestamp }) => {
-      return {
-        id: crypto.randomUUID(),
-        amount,
-        name,
-        timestamp: timestamp * 1000,
-        type: amount < 0 ? 'EXPENSE' : 'INCOME',
-      };
-    });
+    .map(({ amount, name, timestamp }) => ({
+      id: crypto.randomUUID(),
+      amount,
+      name,
+      timestamp: timestamp * 1000,
+      type: amount < 0 ? 'EXPENSE' : 'INCOME',
+    }));
 };
 
 export const filterTransactionsByTimestamp = ({
